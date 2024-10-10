@@ -2,13 +2,9 @@
 
 -- insertar cliente
 DELIMITER //
-CREATE PROCEDURE tienInsertClient(
-IN v_nombre VARCHAR(45),
-IN v_telefono VARCHAR(45),
-IN v_direccion VARCHAR(45)
-)
+CREATE PROCEDURE proInsertClient(IN v_nombre VARCHAR(45),IN v_telefono VARCHAR(15),IN v_direccion TEXT)
 BEGIN
-INSERT INTO tbl_cliente (clien_nombre, clien_telefono, clien_direccion)
+INSERT INTO tbl_clientes (cli_nombre, cli_telefono, cli_direccion)
 VALUES (v_nombre, v_telefono, v_direccion);
 END //
 DELIMITER ;
@@ -16,41 +12,29 @@ DELIMITER ;
 
 -- seleccionar cliente
 DELIMITER //
-CREATE PROCEDURE tienSelectClients()
+CREATE PROCEDURE proSelectClients()
 BEGIN
-    SELECT * FROM tbl_cliente;
+    SELECT * FROM tbl_clientes;
 END //
 DELIMITER ;
 
-DELIMITER //
-CREATE PROCEDURE tienSelectClientID (IN v_clien_id INT)
-BEGIN
-    SELECT * FROM tbl_cliente WHERE clien_id = v_clien_id;
-END //
-DELIMITER ;
+
 
 
 -- actualizar cliente
 DELIMITER //
-CREATE PROCEDURE tienUpdateClient(
-IN v_clien_id INT,
-IN v_nombre VARCHAR(45),
-IN v_telefono VARCHAR(45),
-IN v_direccion VARCHAR(45)
-)
+CREATE PROCEDURE proUpdateClient(IN v_id INT,IN v_nombre VARCHAR(45),IN v_telefono VARCHAR(15),IN v_direccion TEXT)
 BEGIN
-    UPDATE tbl_cliente
-    SET clien_nombre = v_nombre,
-    clien_telefono = v_telefono,
-    clien_direccion = v_direccion
-    WHERE clien_id = v_clien_id;
+    UPDATE tbl_clientes
+    SET cli_nombre = v_nombre,cli_telefono = v_telefono,cli_direccion = v_direccion
+    WHERE cli_id = v_id;
 END //
 DELIMITER ;
 
 -- eliminar cliente
 DELIMITER //
-CREATE PROCEDURE tienDeleteClient(IN v_clien_id INT)
+CREATE PROCEDURE proDeleteClient(IN v_id INT)
 BEGIN
-    DELETE FROM tbl_cliente WHERE clien_id = v_clien_id;
+    DELETE FROM tbl_clientes WHERE cli_id = v_id;
 END //
 DELIMITER ;

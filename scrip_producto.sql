@@ -1,64 +1,57 @@
--- PRODUCTO   
-      -- insertar un producto
+
+-- insertar un producto
 DELIMITER //
-CREATE PROCEDURE procInsertProducto (IN v_nombre VARCHAR(45), IN v_descripcion VARCHAR(45), IN v_precio DOUBLE,
+CREATE PROCEDURE proInsertProducto(IN v_nombre VARCHAR(50), IN v_descripcion VARCHAR(45), IN v_precio DOUBLE,
     IN v_stock INT, IN v_imagen VARCHAR(300), IN v_categoria_id INT, IN v_proveedor_id INT)
 BEGIN
-    INSERT INTO tbl_producto (
-        prod_nombre,
-        prod_descripcion,
-        prod_precio,
-        prod_stock,
-        prod_imagen,
-        tbl_categorias_cat_id,
-        tbl_proveedores_prov_id1)
+    INSERT INTO tbl_productos(pro_nombre,pro_descripcion,pro_precio,pro_stock,pro_imagen,tbl_categoria_cat_id,
+        tbl_proveedores_prov_id)
         VALUES (v_nombre, v_descripcion, v_precio, v_stock, v_imagen, v_categoria_id, v_proveedor_id);
 END//
 DELIMITER ;
 
-    -- actualizar un producto
+
+-- actualizar un producto
 DELIMITER //
-CREATE PROCEDURE procUpdateProducto (IN v_id INT, IN v_nombre VARCHAR(45), IN v_descripcion VARCHAR(45), IN v_precio DOUBLE,
+CREATE PROCEDURE proUpdateProducto(IN v_id INT, IN v_nombre VARCHAR(50), IN v_descripcion VARCHAR(45), IN v_precio DOUBLE,
     IN v_stock INT, IN v_imagen VARCHAR(300), IN v_categoria_id INT,IN v_proveedor_id INT)
 BEGIN
-    UPDATE tbl_producto
+    UPDATE tbl_productos
     SET 
-        prod_nombre = v_nombre,
-        prod_descripcion = v_descripcion,
-        prod_precio = v_precio,
-        prod_stock = v_stock,
-        prod_imagen = v_imagen,
-        tbl_categorias_cat_id = v_categoria_id,
-        tbl_proveedores_prov_id1 = v_proveedor_id
-    WHERE prod_id = v_id;
+        pro_nombre = v_nombre,
+        pro_descripcion = v_descripcion,
+        pro_precio = v_precio,
+        pro_stock = v_stock,
+        pro_imagen = v_imagen,
+        tbl_categoria_cat_id = v_categoria_id,
+        tbl_proveedores_prov_id = v_proveedor_id
+    WHERE pro_id = v_id;
 END//
 DELIMITER ;
 
-     -- mostrar producto
+-- mostrar producto
 DELIMITER //
-CREATE PROCEDURE procSelectProducto()
+CREATE PROCEDURE proSelectProducto()
 BEGIN
     SELECT 
-        p.prod_id,
-        p.prod_nombre,
-        p.prod_descripcion,
-        p.prod_precio,
-        p.prod_stock,
-        p.prod_imagen,
-        c.cat_nombre AS categoria,
-        prov.prov_nombre AS proveedor
-    FROM tbl_producto p
-    LEFT JOIN tbl_categorias c ON p.tbl_categorias_cat_id = c.cat_id
-    LEFT JOIN tbl_proveedores prov ON p.tbl_proveedores_prov_id1 = prov.prov_id;
+        pro_id,
+        pro_nombre,
+        pro_descripcion,
+        pro_precio,
+        pro_stock,
+        pro_imagen,
+        tbl_categoria_cat_id,
+        tbl_proveedores_prov_id
+    FROM tbl_productos;
 END//
 DELIMITER ;
 
 
     -- eliminar peoducto
 DELIMITER //
-CREATE PROCEDURE procDeleteProducto (IN v_id INT)
+CREATE PROCEDURE proDeleteProducto(IN v_id INT)
 BEGIN
-    DELETE FROM tbl_producto
-    WHERE prod_id = v_id;
+    DELETE FROM tbl_productos
+    WHERE pro_id = v_id;
 END//
 DELIMITER ;
